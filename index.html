@@ -18,26 +18,16 @@
             color: #333;
         }
 
-        .container {
-            display: flex;
-            min-height: 100vh;
-            max-width: 1400px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .sidebar {
-            width: 250px;
+        .top-ad {
             background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
-            padding: 20px;
+            padding: 15px;
+            text-align: center;
             color: white;
             position: relative;
             overflow: hidden;
         }
 
-        .sidebar::before {
+        .top-ad::before {
             content: '';
             position: absolute;
             top: 0;
@@ -48,10 +38,10 @@
             opacity: 0.3;
         }
 
-        .sidebar h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            text-align: center;
+        .top-ad h3 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #ecf0f1;
             position: relative;
             z-index: 1;
         }
@@ -59,8 +49,8 @@
         .ad-container {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
+            padding: 10px;
+            margin-bottom: 10px;
             text-align: center;
             position: relative;
             z-index: 1;
@@ -68,14 +58,20 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .ad-container h3 {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            color: #ecf0f1;
+        .ad-container:last-child {
+            margin-bottom: 0;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            min-height: calc(100vh - 200px);
         }
 
         .main-content {
-            flex: 1;
             padding: 30px;
             background: white;
             position: relative;
@@ -100,6 +96,84 @@
         .header p {
             color: #7f8c8d;
             font-size: 1.1rem;
+        }
+
+        .admin-panel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-panel h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .upload-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .upload-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .upload-box:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .upload-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .upload-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .password-input::placeholder {
+            color: #7f8c8d;
         }
 
         .file-manager {
@@ -289,6 +363,24 @@
             background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
         }
 
+        .delete-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+            margin-top: 5px;
+            width: 100%;
+        }
+
+        .delete-btn:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-2px);
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -435,28 +527,46 @@
             }
         }
 
+        .bottom-ad {
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            padding: 15px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bottom-ad::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .bottom-ad h3 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #ecf0f1;
+            position: relative;
+            z-index: 1;
+        }
+
         /* Адаптивность */
         @media (max-width: 1200px) {
-            .sidebar {
-                width: 200px;
-            }
             .file-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            .upload-section {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-                order: 2;
-            }
-            
             .main-content {
-                order: 1;
                 padding: 20px;
             }
             
@@ -526,25 +636,52 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Левая реклама -->
-        <div class="sidebar">
-            <h2>Реклама</h2>
-            <div class="ad-container">
-                <h3>Рекламный блок 1</h3>
-                <div id="yandex_rtb_R-A-16662780-1"></div>
-            </div>
-            <div class="ad-container">
-                <h3>Рекламный блок 2</h3>
-                <div id="yandex_rtb_R-A-16662780-2"></div>
-            </div>
+    <!-- Верхняя реклама -->
+    <div class="top-ad">
+        <h3>Реклама</h3>
+        <div class="ad-container">
+            <div id="yandex_rtb_R-A-16662780-1"></div>
         </div>
+        <div class="ad-container">
+            <div id="yandex_rtb_R-A-16662780-2"></div>
+        </div>
+    </div>
 
-        <!-- Основной контент -->
+    <!-- Основной контент -->
+    <div class="main-container">
         <div class="main-content">
             <div class="header">
                 <h1>Файловый менеджер</h1>
                 <p>Безопасный доступ к файлам с защитой паролем</p>
+            </div>
+
+            <!-- Панель администратора -->
+            <div class="admin-panel">
+                <h2>🔧 Панель администратора</h2>
+                <div class="upload-section">
+                    <div class="upload-box">
+                        <h3>📁 Загрузить папку</h3>
+                        <input type="file" id="folderInput" class="file-input" webkitdirectory directory multiple>
+                        <button class="upload-btn" onclick="document.getElementById('folderInput').click()">
+                            Выбрать папку
+                        </button>
+                        <input type="password" class="password-input" id="folderPassword" placeholder="Ключ доступа (необязательно)">
+                        <button class="upload-btn" onclick="uploadFolder()" style="margin-top: 10px;">
+                            Загрузить папку
+                        </button>
+                    </div>
+                    <div class="upload-box">
+                        <h3>📄 Загрузить файл</h3>
+                        <input type="file" id="fileInput" class="file-input" multiple>
+                        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                            Выбрать файл(ы)
+                        </button>
+                        <input type="password" class="password-input" id="filePassword" placeholder="Ключ доступа (необязательно)">
+                        <button class="upload-btn" onclick="uploadFiles()" style="margin-top: 10px;">
+                            Загрузить файл(ы)
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="file-manager">
@@ -559,18 +696,16 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Правая реклама -->
-        <div class="sidebar">
-            <h2>Реклама</h2>
-            <div class="ad-container">
-                <h3>Рекламный блок 3</h3>
-                <div id="yandex_rtb_R-A-16662780-1"></div>
-            </div>
-            <div class="ad-container">
-                <h3>Рекламный блок 4</h3>
-                <div id="yandex_rtb_R-A-16662780-2"></div>
-            </div>
+    <!-- Нижняя реклама -->
+    <div class="bottom-ad">
+        <h3>Реклама</h3>
+        <div class="ad-container">
+            <div id="yandex_rtb_R-A-16662780-1"></div>
+        </div>
+        <div class="ad-container">
+            <div id="yandex_rtb_R-A-16662780-2"></div>
         </div>
     </div>
 
@@ -642,6 +777,21 @@
                     addFolder();
                 }
             });
+
+            // Обработка выбора файлов
+            document.getElementById('fileInput').addEventListener('change', function(e) {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    showSuccessMessage(`Выбрано файлов: ${files.length}`);
+                }
+            });
+
+            document.getElementById('folderInput').addEventListener('change', function(e) {
+                const files = e.target.files;
+                if (files.length > 0) {
+                    showSuccessMessage(`Выбрано файлов в папке: ${files.length}`);
+                }
+            });
         }
 
         function loadFiles() {
@@ -680,6 +830,9 @@
                                 ${isLocked ? '🔒 Открыть' : '📂 Открыть'}
                             </button>`
                         }
+                        <button class="delete-btn" onclick="event.stopPropagation(); deleteFile(${index})">
+                            🗑️ Удалить
+                        </button>
                     </div>
                 `;
             }).join('');
@@ -704,9 +857,7 @@
                 document.getElementById('passwordInput').value = '';
                 document.getElementById('passwordInput').focus();
             } else {
-                // Открываем папку без пароля
                 showSuccessMessage(`📁 Папка "${fileName}" открыта!`);
-                // Здесь можно добавить логику для отображения содержимого папки
             }
         }
 
@@ -740,7 +891,6 @@
                     showSuccessMessage('✅ Доступ разрешен! Начинается загрузка...');
                 } else if (currentAction === 'open') {
                     showSuccessMessage(`📁 Папка "${currentFile.name}" открыта!`);
-                    // Здесь можно добавить логику для отображения содержимого папки
                 }
             } else {
                 showErrorMessage('❌ Неверный ключ доступа!');
@@ -750,7 +900,6 @@
         }
 
         function startDownload(fileName) {
-            // Имитация загрузки файла
             const link = document.createElement('a');
             link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(`Содержимое файла ${fileName}\n\nЭто демонстрационная загрузка файла.`);
             link.download = fileName;
@@ -760,6 +909,92 @@
             document.body.removeChild(link);
             
             showSuccessMessage(`✅ Файл "${fileName}" успешно загружен!`);
+        }
+
+        function uploadFiles() {
+            const fileInput = document.getElementById('fileInput');
+            const password = document.getElementById('filePassword').value.trim();
+            
+            if (fileInput.files.length === 0) {
+                showErrorMessage('❌ Выберите файлы для загрузки!');
+                return;
+            }
+
+            const files = Array.from(fileInput.files);
+            let uploadedCount = 0;
+
+            files.forEach(file => {
+                const fileSize = formatFileSize(file.size);
+                const newFile = {
+                    name: file.name,
+                    type: 'file',
+                    size: fileSize,
+                    password: password || null
+                };
+
+                // Проверяем, не существует ли уже файл с таким именем
+                const existingFile = filesData.find(f => f.name === file.name);
+                if (existingFile) {
+                    showWarningMessage(`⚠️ Файл "${file.name}" уже существует и будет заменен`);
+                }
+
+                filesData.push(newFile);
+                uploadedCount++;
+            });
+
+            loadFiles();
+            fileInput.value = '';
+            document.getElementById('filePassword').value = '';
+            showSuccessMessage(`✅ Успешно загружено файлов: ${uploadedCount}`);
+        }
+
+        function uploadFolder() {
+            const folderInput = document.getElementById('folderInput');
+            const password = document.getElementById('folderPassword').value.trim();
+            
+            if (folderInput.files.length === 0) {
+                showErrorMessage('❌ Выберите папку для загрузки!');
+                return;
+            }
+
+            const files = Array.from(folderInput.files);
+            const folderName = files[0].webkitRelativePath.split('/')[0];
+            
+            // Проверяем, не существует ли уже папка с таким именем
+            const existingFolder = filesData.find(f => f.name === folderName);
+            if (existingFolder) {
+                showWarningMessage(`⚠️ Папка "${folderName}" уже существует и будет заменена`);
+            }
+
+            const newFolder = {
+                name: folderName,
+                type: 'folder',
+                size: `${files.length} файлов`,
+                password: password || null
+            };
+
+            filesData.push(newFolder);
+            loadFiles();
+            folderInput.value = '';
+            document.getElementById('folderPassword').value = '';
+            showSuccessMessage(`✅ Папка "${folderName}" успешно загружена!`);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        function deleteFile(index) {
+            const file = filesData[index];
+            if (confirm(`Вы уверены, что хотите удалить "${file.name}"?`)) {
+                filesData.splice(index, 1);
+                loadFiles();
+                showSuccessMessage(`✅ "${file.name}" успешно удален!`);
+            }
         }
 
         function showAddFolderModal() {
@@ -783,7 +1018,6 @@
                 return;
             }
             
-            // Проверяем, не существует ли уже папка с таким именем
             const existingFolder = filesData.find(file => file.name === name);
             if (existingFolder) {
                 showErrorMessage('❌ Папка с таким названием уже существует!');
@@ -826,7 +1060,6 @@
         }
 
         function showNotification(message, type) {
-            // Удаляем существующие уведомления
             const existingNotifications = document.querySelectorAll('.notification');
             existingNotifications.forEach(notification => {
                 notification.remove();

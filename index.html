@@ -151,40 +151,57 @@
             transform: translateY(-2px);
         }
 
-        .file-list {
+        .file-grid {
             padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
             max-height: 600px;
             overflow-y: auto;
         }
 
-        .file-item {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
+        .file-card {
             background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
             border: 2px solid transparent;
+            position: relative;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .file-item:hover {
+        .file-card:hover {
             background: #e9ecef;
-            transform: translateX(5px);
+            transform: translateY(-5px);
             border-color: #667eea;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .file-card.locked {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+        }
+
+        .file-card.locked:hover {
+            background: linear-gradient(135deg, #ff5252 0%, #e74c3c 100%);
         }
 
         .file-icon {
-            width: 40px;
-            height: 40px;
-            margin-right: 15px;
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
-            font-size: 1.2rem;
+            border-radius: 15px;
+            font-size: 2rem;
+            position: relative;
         }
 
         .file-icon.folder {
@@ -197,19 +214,53 @@
             color: white;
         }
 
+        .file-icon.locked {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+        }
+
+        .lock-icon {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
         .file-info {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .file-name {
             font-weight: 600;
             color: #2c3e50;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            word-break: break-word;
+        }
+
+        .file-card.locked .file-name {
+            color: white;
         }
 
         .file-size {
             font-size: 0.8rem;
             color: #7f8c8d;
+        }
+
+        .file-card.locked .file-size {
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .download-btn {
@@ -221,11 +272,21 @@
             cursor: pointer;
             font-size: 0.8rem;
             transition: all 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
         }
 
         .download-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .download-btn.locked {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+
+        .download-btn.locked:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
         }
 
         .modal {
@@ -317,6 +378,7 @@
             text-align: center;
             padding: 60px 20px;
             color: #7f8c8d;
+            grid-column: 1 / -1;
         }
 
         .empty-state i {
@@ -325,10 +387,61 @@
             opacity: 0.5;
         }
 
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease-out;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            max-width: 300px;
+        }
+
+        .notification.success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+
+        .notification.error {
+            background: linear-gradient(135deg, #dc3545, #fd7e14);
+        }
+
+        .notification.warning {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
         /* Адаптивность */
         @media (max-width: 1200px) {
             .sidebar {
                 width: 200px;
+            }
+            .file-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -356,14 +469,9 @@
                 gap: 15px;
             }
             
-            .file-item {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            
-            .file-icon {
-                margin-right: 0;
+            .file-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
         }
 
@@ -384,24 +492,35 @@
                 margin: 20% auto;
                 padding: 20px;
             }
+            
+            .file-card {
+                min-height: 120px;
+                padding: 15px;
+            }
+            
+            .file-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
         }
 
         /* Кастомный скроллбар */
-        .file-list::-webkit-scrollbar {
+        .file-grid::-webkit-scrollbar {
             width: 8px;
         }
 
-        .file-list::-webkit-scrollbar-track {
+        .file-grid::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 4px;
         }
 
-        .file-list::-webkit-scrollbar-thumb {
+        .file-grid::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 4px;
         }
 
-        .file-list::-webkit-scrollbar-thumb:hover {
+        .file-grid::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
         }
     </style>
@@ -435,7 +554,7 @@
                         ➕ Добавить папку
                     </button>
                 </div>
-                <div class="file-list" id="fileList">
+                <div class="file-grid" id="fileGrid">
                     <!-- Файлы будут загружены динамически -->
                 </div>
             </div>
@@ -489,10 +608,13 @@
             { name: 'readme.txt', type: 'file', size: '2.5 KB', password: null },
             { name: 'config.ini', type: 'file', size: '1.2 KB', password: null },
             { name: 'cheat_loader.exe', type: 'file', size: '15.7 MB', password: 'loader789' },
-            { name: 'bypass.dll', type: 'file', size: '8.3 MB', password: 'bypass2024' }
+            { name: 'bypass.dll', type: 'file', size: '8.3 MB', password: 'bypass2024' },
+            { name: 'spoofer.exe', type: 'file', size: '12.1 MB', password: 'spoofer2024' },
+            { name: 'config.json', type: 'file', size: '0.8 KB', password: null }
         ];
 
         let currentFile = null;
+        let currentAction = null; // 'download' или 'open'
 
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
@@ -523,10 +645,10 @@
         }
 
         function loadFiles() {
-            const fileList = document.getElementById('fileList');
+            const fileGrid = document.getElementById('fileGrid');
             
             if (filesData.length === 0) {
-                fileList.innerHTML = `
+                fileGrid.innerHTML = `
                     <div class="empty-state">
                         <div style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;">📁</div>
                         <h3>Папка пуста</h3>
@@ -536,30 +658,62 @@
                 return;
             }
 
-            fileList.innerHTML = filesData.map((file, index) => `
-                <div class="file-item" onclick="handleFileClick('${file.name}', ${index})">
-                    <div class="file-icon ${file.type}">
-                        ${file.type === 'folder' ? '📁' : '📄'}
+            fileGrid.innerHTML = filesData.map((file, index) => {
+                const isLocked = file.password !== null;
+                const lockIcon = isLocked ? '<div class="lock-icon">🔒</div>' : '';
+                
+                return `
+                    <div class="file-card ${isLocked ? 'locked' : ''}" onclick="handleFileClick('${file.name}', ${index})">
+                        <div class="file-icon ${file.type} ${isLocked ? 'locked' : ''}">
+                            ${file.type === 'folder' ? '📁' : '📄'}
+                            ${lockIcon}
+                        </div>
+                        <div class="file-info">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-size">${file.size}</div>
+                        </div>
+                        ${file.type === 'file' ? 
+                            `<button class="download-btn ${isLocked ? 'locked' : ''}" onclick="event.stopPropagation(); downloadFile('${file.name}', ${index})">
+                                ${isLocked ? '🔒 Скачать' : '⬇️ Скачать'}
+                            </button>` : 
+                            `<button class="download-btn ${isLocked ? 'locked' : ''}" onclick="event.stopPropagation(); openFolder('${file.name}', ${index})">
+                                ${isLocked ? '🔒 Открыть' : '📂 Открыть'}
+                            </button>`
+                        }
                     </div>
-                    <div class="file-info">
-                        <div class="file-name">${file.name}</div>
-                        <div class="file-size">${file.size}</div>
-                    </div>
-                    ${file.type === 'file' ? '<button class="download-btn" onclick="event.stopPropagation(); downloadFile(\'' + file.name + '\', ' + index + ')">⬇️ Скачать</button>' : ''}
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function handleFileClick(fileName, index) {
             const file = filesData[index];
             if (file.type === 'folder') {
-                alert(`📁 Открытие папки: ${fileName}\n🔑 Ключ доступа: ${file.password}`);
+                openFolder(fileName, index);
+            } else {
+                downloadFile(fileName, index);
+            }
+        }
+
+        function openFolder(fileName, index) {
+            const file = filesData[index];
+            currentFile = file;
+            currentAction = 'open';
+            
+            if (file.password) {
+                document.getElementById('passwordModal').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            } else {
+                // Открываем папку без пароля
+                showSuccessMessage(`📁 Папка "${fileName}" открыта!`);
+                // Здесь можно добавить логику для отображения содержимого папки
             }
         }
 
         function downloadFile(fileName, index) {
             const file = filesData[index];
             currentFile = file;
+            currentAction = 'download';
             
             if (file.password) {
                 document.getElementById('passwordModal').style.display = 'block';
@@ -573,10 +727,21 @@
         function checkPassword() {
             const password = document.getElementById('passwordInput').value;
             
+            if (!password.trim()) {
+                showErrorMessage('❌ Введите ключ доступа!');
+                return;
+            }
+            
             if (password === currentFile.password) {
                 closeModal();
-                startDownload(currentFile.name);
-                showSuccessMessage('✅ Доступ разрешен! Начинается загрузка...');
+                
+                if (currentAction === 'download') {
+                    startDownload(currentFile.name);
+                    showSuccessMessage('✅ Доступ разрешен! Начинается загрузка...');
+                } else if (currentAction === 'open') {
+                    showSuccessMessage(`📁 Папка "${currentFile.name}" открыта!`);
+                    // Здесь можно добавить логику для отображения содержимого папки
+                }
             } else {
                 showErrorMessage('❌ Неверный ключ доступа!');
                 document.getElementById('passwordInput').value = '';
@@ -618,6 +783,13 @@
                 return;
             }
             
+            // Проверяем, не существует ли уже папка с таким именем
+            const existingFolder = filesData.find(file => file.name === name);
+            if (existingFolder) {
+                showErrorMessage('❌ Папка с таким названием уже существует!');
+                return;
+            }
+            
             const newFolder = {
                 name: name,
                 type: 'folder',
@@ -634,6 +806,7 @@
         function closeModal() {
             document.getElementById('passwordModal').style.display = 'none';
             currentFile = null;
+            currentAction = null;
         }
 
         function closeAddFolderModal() {
@@ -648,21 +821,19 @@
             showNotification(message, 'error');
         }
 
+        function showWarningMessage(message) {
+            showNotification(message, 'warning');
+        }
+
         function showNotification(message, type) {
+            // Удаляем существующие уведомления
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => {
+                notification.remove();
+            });
+
             const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 20px;
-                border-radius: 8px;
-                color: white;
-                font-weight: 600;
-                z-index: 10000;
-                animation: slideInRight 0.3s ease-out;
-                background: ${type === 'success' ? 'linear-gradient(135deg, #28a745, #20c997)' : 'linear-gradient(135deg, #dc3545, #fd7e14)'};
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            `;
+            notification.className = `notification ${type}`;
             notification.textContent = message;
             
             document.body.appendChild(notification);
@@ -670,37 +841,12 @@
             setTimeout(() => {
                 notification.style.animation = 'slideOutRight 0.3s ease-in';
                 setTimeout(() => {
-                    document.body.removeChild(notification);
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
                 }, 300);
-            }, 3000);
+            }, 4000);
         }
-
-        // Добавляем CSS анимации для уведомлений
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideInRight {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            
-            @keyframes slideOutRight {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
 
         // Имитация загрузки данных с сервера
         setTimeout(() => {
